@@ -1,27 +1,24 @@
 #!/usr/bin/env python3
-""" defines a routine wait_n that takes in 2
-    int arguments (in this order): n and max_delay
+
 """
+This module provides the function `wait_n`
+"""
+
 import typing
-import asyncio
 wait_random = __import__(0-basic_async_syntax).wait_random
 
 
 async def wait_n(n: int, max_delay: int) -> typing.List[float]:
-    """ Spawns wait_random n times with specified max_delay
-        return: A list of all delays(floats) in ascending order.
     """
-    res_list = []
-    sorted_list = []
+    This function that takes in 2 int arguments n and max_delay,
+    spawns wait_random n times with the specified max_delay and
+    returns the list of all the delays in ascending order.
+    """
+    delays: typing.List[float] = []
+    delay: float = 0.0
     for i in range(n):
-        res = await wait_random(max_delay)
-        res_list.append(res)
-    # Sort the list in ascending order.
-    while res_list:
-        MIN = res_list[0]
-        for x in res_list:
-            if x < MIN:
-                MIN = x
-        sorted_list.append(MIN)
-        res_list.remove(MIN)
-    return sorted_list
+        delay = await wait_random(max_delay)
+        delays.append(delay)
+    delaysT = tuple(delays)
+    delays = list(sorted(delaysT))
+    return delays
